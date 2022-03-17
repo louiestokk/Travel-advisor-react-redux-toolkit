@@ -1,0 +1,42 @@
+@import "../../Styles//colors.scss";
+
+.list-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.form-control {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+p,
+option,
+h4 {
+  color: $text;
+}
+select {
+  background: transparent;
+  border: 1px solid $primary;
+  padding: 0.3rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+.form-input {
+  margin: 0.7rem 0;
+}
+p {
+  font-size: 0.9rem;
+  margin-bottom: 0.1rem;
+}
+h4 {
+  font-size: 1.6rem;
+}
+.places-root {
+  height: 810px;
+  overflow-y: scroll;
+  width: 80%;
+  margin: 1.5rem 0;
+}

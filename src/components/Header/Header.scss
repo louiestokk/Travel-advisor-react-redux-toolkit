@@ -1,0 +1,43 @@
+@import "../../Styles//colors.scss";
+@import url("https://fonts.googleapis.com/css2?family=League+Gothic&display=swap");
+header {
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+  transition: all 0.3 linear;
+}
+button {
+  background: transparent;
+  border: none;
+  margin-left: 0.6rem;
+  font-size: 1.3rem;
+}
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+.logo {
+  background: $light;
+  padding: 0.4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+}
+.logo-icon {
+  font-size: 1.3rem;
+}
+h4 {
+  margin-left: 0.2rem;
+  color: $text;
+  letter-spacing: 0.5px;
+  margin-right: 0.5rem;
+  font-size: 1.5rem;
+  font-family: "League Gothic", sans-serif;
+}
+.navbar {
+  position: fixed;
+  transition: all 0.3s linear;
+}

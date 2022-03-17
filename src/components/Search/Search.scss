@@ -1,0 +1,26 @@
+@import "../../Styles//colors.scss";
+.root {
+  background: url("../../utils//images//holiday.webp");
+  height: 200px;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  margin: 1rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+input {
+  border: none;
+}
+.container {
+  background: white;
+  align-items: center;
+  display: flex;
+  height: 2.6rem;
+  width: 80%;
+  border-radius: 16px;
+}
+.icon {
+  margin: 0 0.3rem;
+}
