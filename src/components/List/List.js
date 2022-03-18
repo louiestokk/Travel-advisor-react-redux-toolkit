@@ -16,7 +16,7 @@ const List = () => {
   const type = useSelector(getTypes);
   const rating = useSelector(getRating);
   const filteredPlaces = useSelector(getFiltered);
-  console.log(filteredPlaces);
+
   return (
     <div className="list-root">
       <h4 style={{ marginTop: "1rem" }}>Restaurants, Hotels & Attractions</h4>
@@ -50,13 +50,27 @@ const List = () => {
         </div>
       </div>
       <div className="places-root">
-        {places?.map((place, ind) => {
-          return (
-            <div key={ind} className="places-container">
-              <PlaceDetails place={place} />
-            </div>
-          );
-        })}
+        {filteredPlaces.length ? (
+          <div>
+            {filteredPlaces?.map((place, ind) => {
+              return (
+                <div key={ind} className="places-container">
+                  <PlaceDetails place={place} />
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div>
+            {places?.map((place, ind) => {
+              return (
+                <div key={ind} className="places-container">
+                  <PlaceDetails place={place} />
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Header from "./components/Header/Header";
 import Search from "./components/Search/Search";
 import List from "./components/List/List";
 import Map from "./components/Map/Map";
 import Footer from "./components/Footer/Footer";
-import { getPlacesData } from "./api/index";
+import { getPlacesData, getWheaterData } from "./api/index";
 import {
   setPlaces,
   getBounds,
@@ -14,18 +14,21 @@ import {
   setFiltered,
   getRating,
   getPlaces,
-  setLoading,
-  getLoading,
+  setWeatherData,
+  getCoords,
 } from "./redux-toolkit/places/placesSlice";
 import { useDispatch, useSelector } from "react-redux";
-
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { Audio } from "react-loader-spinner";
 function App() {
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const bounds = useSelector(getBounds);
   const type = useSelector(getTypes);
   const rating = useSelector(getRating);
   const places = useSelector(getPlaces);
-  const loading = useSelector(getLoading);
+  const coords = useSelector(getCoords);
+
   useEffect(() => {
     // eslint-disable-next-line
     navigator.geolocation.getCurrentPosition(
@@ -36,32 +39,39 @@ function App() {
     // eslint-disable-next-line
   }, []);
   useEffect(() => {
-    dispatch(setLoading(true));
     if (bounds.sw && bounds.ne) {
+      getWheaterData(coords.lat, coords.lng).then((data) => {
+        dispatch(setWeatherData(data));
+      });
+
       getPlacesData(type, bounds.sw, bounds.ne).then((data) => {
         dispatch(
           setPlaces(data?.filter((el) => el.name && el.num_reviews > 0))
         );
       });
-      dispatch(setLoading(false));
     }
     // eslint-disable-next-line
   }, [type, bounds]);
 
   useEffect(() => {
-    dispatch(setLoading(true));
     const filteredPlaces = places.filter((el) => el.rating > rating);
     dispatch(setFiltered(filteredPlaces));
     // eslint-disable-next-line
-    dispatch(setLoading(false));
   }, [rating]);
+
   return (
     <div className="App">
       <Header />
       <Search />
       <div className="list-map-container">
-        <List />
-        <Map />
+        {loading ? (
+          <Audio height="100" width="100" color="grey" ariaLabel="loading" />
+        ) : (
+          <>
+            <List />
+            <Map />
+          </>
+        )}
       </div>
       <Footer />
     </div>
