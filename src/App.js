@@ -21,14 +21,13 @@ import { useDispatch, useSelector } from "react-redux";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { Audio } from "react-loader-spinner";
 function App() {
-  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const bounds = useSelector(getBounds);
   const type = useSelector(getTypes);
   const rating = useSelector(getRating);
   const places = useSelector(getPlaces);
   const coords = useSelector(getCoords);
-
+  const [element, setElement] = useState("");
   useEffect(() => {
     // eslint-disable-next-line
     navigator.geolocation.getCurrentPosition(
@@ -40,14 +39,13 @@ function App() {
   }, []);
   useEffect(() => {
     if (bounds.sw && bounds.ne) {
-      getWheaterData(coords.lat, coords.lng).then((data) => {
-        dispatch(setWeatherData(data));
-      });
-
       getPlacesData(type, bounds.sw, bounds.ne).then((data) => {
         dispatch(
           setPlaces(data?.filter((el) => el.name && el.num_reviews > 0))
         );
+      });
+      getWheaterData(coords.lat, coords.lng).then((data) => {
+        dispatch(setWeatherData(data));
       });
     }
     // eslint-disable-next-line
@@ -58,20 +56,13 @@ function App() {
     dispatch(setFiltered(filteredPlaces));
     // eslint-disable-next-line
   }, [rating]);
-
   return (
     <div className="App">
       <Header />
       <Search />
       <div className="list-map-container">
-        {loading ? (
-          <Audio height="100" width="100" color="grey" ariaLabel="loading" />
-        ) : (
-          <>
-            <List />
-            <Map />
-          </>
-        )}
+        <List element={element} />
+        <Map setElement={setElement} />
       </div>
       <Footer />
     </div>

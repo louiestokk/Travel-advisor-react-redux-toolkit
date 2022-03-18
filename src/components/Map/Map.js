@@ -3,7 +3,7 @@ import "./Map.scss";
 import {
   getCoords,
   setBounds,
-  getBounds,
+  getFiltered,
   getPlaces,
   setCoords,
   setChildClick,
@@ -16,17 +16,17 @@ import { Paper, Typography } from "@material-ui/core";
 import { LocationOnOutlined } from "@material-ui/icons";
 import { Rating } from "@material-ui/lab";
 
-const Map = () => {
+const Map = ({ setElement }) => {
   const dispatch = useDispatch();
   const coords = useSelector(getCoords);
   const places = useSelector(getPlaces);
   const weatherData = useSelector(getWeatherData);
   const desktopSize = true;
+  const filtered = useSelector(getFiltered);
 
   const handleClick = (e) => {
-    console.log(e.currentTarget);
-    const clicked = document.getElementById(e.currentTarget.id);
-    console.log(clicked);
+    console.log(e.currentTarget.id);
+    setElement(e.currentTarget.id);
   };
 
   return (

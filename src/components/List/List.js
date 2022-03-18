@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./List.scss";
 import PlaceDetails from "../PlaceDetails/PlaceDetails";
 import {
@@ -10,13 +10,17 @@ import {
   getFiltered,
 } from "../../redux-toolkit/places/placesSlice";
 import { useDispatch, useSelector } from "react-redux";
-const List = () => {
+const List = ({ element }) => {
   const dispatch = useDispatch();
   const places = useSelector(getPlaces);
   const type = useSelector(getTypes);
   const rating = useSelector(getRating);
   const filteredPlaces = useSelector(getFiltered);
-
+  useEffect(() => {
+    if (element) {
+      document.getElementById(element).scrollIntoView({ behavior: "smooth" });
+    }
+  }, [element]);
   return (
     <div className="list-root">
       <h4 style={{ marginTop: "1rem" }}>Restaurants, Hotels & Attractions</h4>
@@ -54,7 +58,11 @@ const List = () => {
           <div>
             {filteredPlaces?.map((place, ind) => {
               return (
-                <div key={ind} className="places-container">
+                <div
+                  key={ind}
+                  className="places-container"
+                  id={place.location_id}
+                >
                   <PlaceDetails place={place} />
                 </div>
               );
