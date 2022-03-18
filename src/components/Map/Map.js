@@ -25,7 +25,6 @@ const Map = ({ setElement }) => {
   const filtered = useSelector(getFiltered);
 
   const handleClick = (e) => {
-    console.log(e.currentTarget.id);
     setElement(e.currentTarget.id);
   };
 

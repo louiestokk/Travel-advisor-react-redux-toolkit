@@ -72,7 +72,11 @@ const List = ({ element }) => {
           <div>
             {places?.map((place, ind) => {
               return (
-                <div key={ind} className="places-container">
+                <div
+                  key={ind}
+                  className="places-container"
+                  id={place.location_id}
+                >
                   <PlaceDetails place={place} />
                 </div>
               );
