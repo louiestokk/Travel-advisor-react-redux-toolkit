@@ -14,6 +14,8 @@ import {
   setFiltered,
   getRating,
   getPlaces,
+  setLoading,
+  getLoading,
 } from "./redux-toolkit/places/placesSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -23,6 +25,7 @@ function App() {
   const type = useSelector(getTypes);
   const rating = useSelector(getRating);
   const places = useSelector(getPlaces);
+  const loading = useSelector(getLoading);
   useEffect(() => {
     // eslint-disable-next-line
     navigator.geolocation.getCurrentPosition(
@@ -33,20 +36,24 @@ function App() {
     // eslint-disable-next-line
   }, []);
   useEffect(() => {
+    dispatch(setLoading(true));
     if (bounds.sw && bounds.ne) {
       getPlacesData(type, bounds.sw, bounds.ne).then((data) => {
         dispatch(
           setPlaces(data?.filter((el) => el.name && el.num_reviews > 0))
         );
       });
+      dispatch(setLoading(false));
     }
     // eslint-disable-next-line
   }, [type, bounds]);
 
   useEffect(() => {
+    dispatch(setLoading(true));
     const filteredPlaces = places.filter((el) => el.rating > rating);
     dispatch(setFiltered(filteredPlaces));
     // eslint-disable-next-line
+    dispatch(setLoading(false));
   }, [rating]);
   return (
     <div className="App">

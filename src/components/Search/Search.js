@@ -21,7 +21,11 @@ const Search = () => {
   };
   return (
     <div className="root">
-      <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+      <Autocomplete
+        onLoad={onLoad}
+        onPlaceChanged={onPlaceChanged}
+        className="auto"
+      >
         <div
           className="container"
           style={{

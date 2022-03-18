@@ -10,6 +10,7 @@ const initialState = {
   childClick: null,
   filtered: [],
   weatherData: [],
+  loading: false,
 };
 
 const PlacesSlice = createSlice({
@@ -43,6 +44,9 @@ const PlacesSlice = createSlice({
     setWeatherData: (state = initialState, { payload }) => {
       state.weatherData = payload;
     },
+    setLoading: (state = initialState, { payload }) => {
+      state.loading = payload;
+    },
   },
 });
 export const {
@@ -55,6 +59,7 @@ export const {
   setChildClick,
   setFiltered,
   setWeatherData,
+  setLoading,
 } = PlacesSlice.actions;
 export const getQuery = (state) => state.places.query;
 export const getPlaces = (state) => state.places.places;
@@ -65,4 +70,5 @@ export const getRating = (state) => state.places.rating;
 export const getChildClick = (state) => state.places.childClick;
 export const getFiltered = (state) => state.places.filtered;
 export const getWeatherData = (state) => state.places.weatherData;
+export const getLoading = (state) => state.places.loading;
 export default PlacesSlice.reducer;

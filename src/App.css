@@ -19,6 +19,7 @@ input:focus {
   .list-map-container {
     display: flex;
     flex-direction: row;
+    align-items: center;
   }
   .list-root {
     margin-left: 1rem;

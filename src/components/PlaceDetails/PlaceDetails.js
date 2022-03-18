@@ -52,12 +52,13 @@ const PlaceDetails = ({ place }) => {
             {place.ranking}
           </Typography>
         </Box>
-        {place?.awards?.map((award) => (
+        {place?.awards?.map((award, ind) => (
           <Box
             display="flex"
             justifyContent="space-between"
             my={1}
             alignItems="center"
+            key={ind}
           >
             <img src={award.images.small} />
             <Typography variant="subtitle2" color="textSecondary">
