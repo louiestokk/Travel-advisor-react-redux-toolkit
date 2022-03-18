@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+}
+li {
+  list-style-type: none;
+}
+button {
+  cursor: pointer;
+}
+input:focus {
+  outline: none !important;
+}
+@media screen and (min-width: 900px) {
+  .list-map-container {
+    display: flex;
+    flex-direction: row;
+  }
+  .list-root {
+    margin-left: 1rem;
+  }
+  .map-container {
+    margin-right: 1rem;
+  }
+  select {
+    margin-right: 2rem;
+  }
+}
+@media screen and (max-width: 900px) {
+  .list-root {
+    align-items: center;
+    justify-content: center;
+  }
+  .form-control {
+    justify-content: space-evenly;
+  }
+}

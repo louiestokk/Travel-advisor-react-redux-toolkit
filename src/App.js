@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./App.scss";
+import "./App.css";
 import Header from "./components/Header/Header";
 import Search from "./components/Search/Search";
 import List from "./components/List/List";
@@ -7,46 +7,52 @@ import Map from "./components/Map/Map";
 import Footer from "./components/Footer/Footer";
 import { getPlacesData } from "./api/index";
 import {
-  getPlaces,
   setPlaces,
   getBounds,
-  setBounds,
-  setFiltered,
-  getCoords,
   setCoords,
   getTypes,
+  setFiltered,
+  getRating,
+  getPlaces,
 } from "./redux-toolkit/places/placesSlice";
 import { useDispatch, useSelector } from "react-redux";
+
 function App() {
   const dispatch = useDispatch();
-  const coords = useSelector(getCoords);
   const bounds = useSelector(getBounds);
   const type = useSelector(getTypes);
-
+  const rating = useSelector(getRating);
+  const places = useSelector(getPlaces);
   useEffect(() => {
+    // eslint-disable-next-line
     navigator.geolocation.getCurrentPosition(
       ({ coords: { latitude, longitude } }) => {
         dispatch(setCoords({ lat: latitude, lng: longitude }));
       }
     );
+    // eslint-disable-next-line
   }, []);
   useEffect(() => {
     if (bounds.sw && bounds.ne) {
       getPlacesData(type, bounds.sw, bounds.ne).then((data) => {
-        console.log(data);
         dispatch(
           setPlaces(data?.filter((el) => el.name && el.num_reviews > 0))
         );
       });
     }
+    // eslint-disable-next-line
   }, [type, bounds]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const filteredPlaces = places.filter((el) => el.rating > rating);
+    dispatch(setFiltered(filteredPlaces));
+    // eslint-disable-next-line
+  }, [rating]);
   return (
     <div className="App">
       <Header />
       <Search />
-      <div>
+      <div className="list-map-container">
         <List />
         <Map />
       </div>

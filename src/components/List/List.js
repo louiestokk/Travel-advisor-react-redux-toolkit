@@ -7,6 +7,7 @@ import {
   setType,
   getRating,
   setRating,
+  getFiltered,
 } from "../../redux-toolkit/places/placesSlice";
 import { useDispatch, useSelector } from "react-redux";
 const List = () => {
@@ -14,7 +15,8 @@ const List = () => {
   const places = useSelector(getPlaces);
   const type = useSelector(getTypes);
   const rating = useSelector(getRating);
-
+  const filteredPlaces = useSelector(getFiltered);
+  console.log(filteredPlaces);
   return (
     <div className="list-root">
       <h4 style={{ marginTop: "1rem" }}>Restaurants, Hotels & Attractions</h4>

@@ -2,6 +2,7 @@ import React from "react";
 import "./Header.scss";
 import { AiOutlineBars } from "react-icons/ai";
 import { MdOutlineTravelExplore } from "react-icons/md";
+
 const Header = () => {
   return (
     <header>
