@@ -4,6 +4,8 @@
   flex-direction: column;
   justify-content: center;
   width: 100px;
+  max-height: 200px;
+  overflow-y: scroll;
 }
 .map-container {
   height: 100vh;
